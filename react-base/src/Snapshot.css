@@ -1,0 +1,10 @@
+.snapshot .view-area {
+  width: 200px;
+  height: 100px;
+  border: 1px solid pink;
+  overflow: auto;
+}
+
+.snapshot .view-area li {
+  line-height: 25px;
+}

@@ -2,12 +2,13 @@ import React from 'react';
 
 import ForwardRef from './ForwardRef';
 import Lifecycle from './Lifecycle';
+import Snapshot from './Snapshot';
 
 function App(props) {
 
   return (
     <React.Fragment>
-      <Lifecycle />
+      <Snapshot />
     </React.Fragment>
   );
 }
