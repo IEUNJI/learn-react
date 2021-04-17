@@ -2,16 +2,16 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 
 import store from './store';
-import actions from './store/actions';
+import actions from './store/actions/counter2';
 
 const boundActions = bindActionCreators(actions, store.dispatch);
 
-class Counter extends React.Component {
+class Counter2 extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      number: store.getState()
+      number: store.getState().counter2
     };
 
     this.unsubscribe = null;
@@ -20,7 +20,7 @@ class Counter extends React.Component {
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
       this.setState({
-        number: store.getState()
+        number: store.getState().counter2
       });
     });
   }
@@ -33,14 +33,14 @@ class Counter extends React.Component {
     const { number } = this.state;
 
     return (
-      <React.Fragment>
-        <span>计数器</span>
+      <div>
+        <span>计数器2</span>
         <button onClick={boundActions.increment}>+</button>
         <button onClick={boundActions.decrement}>-</button>
         <span>{number}</span>
-      </React.Fragment>
+      </div>
     );
   }
 }
 
-export default Counter;
+export default Counter2;
