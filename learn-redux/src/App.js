@@ -8,7 +8,6 @@ function App(props) {
 
   return (
     <React.Fragment>
-      <Counter1 />
       <Counter2 />
     </React.Fragment>
   );
