@@ -1,5 +1,7 @@
 import React from 'react';
 
+// import './counter';
+
 function App(props) {
 
   return (
