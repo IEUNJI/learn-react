@@ -1,7 +1,8 @@
 const logger = store => dispatch => action => {
   console.log('prev state', store.getState());
-  dispatch(action);
+  action = dispatch(action);
   console.log('next state', store.getState());
+  return action;
 };
 
 export default logger;

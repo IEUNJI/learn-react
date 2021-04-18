@@ -1,6 +1,6 @@
 function bindActionCreator(actionCreator, dispatch) {
   return function () {
-    dispatch(actionCreator.apply(this, arguments));
+    return dispatch(actionCreator.apply(this, arguments));
   };
 }
 

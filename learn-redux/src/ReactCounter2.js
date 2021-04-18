@@ -6,13 +6,15 @@ import actions from './store/actions/counter2';
 class Counter2 extends React.Component {
 
   render() {
-    const { number, increment, decrement } = this.props;
+    const { number, increment, decrement, asyncIncrement, promiseIncrement } = this.props;
 
     return (
       <div>
         <span>计数器2</span>
         <button onClick={increment}>+</button>
         <button onClick={decrement}>-</button>
+        <button onClick={asyncIncrement}>async +</button>
+        <button onClick={promiseIncrement}>promise +</button>
         <span>{number}</span>
       </div>
     );
