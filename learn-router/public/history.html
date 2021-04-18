@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>history</title>
+</head>
+
+<body>
+  <div class="nav">
+    <button onclick="push('/');">跳转到/</button>
+    <button onclick="push('/a');">跳转到/a</button>
+    <button onclick="push('/b');">跳转到/b</button>
+    <button onclick="replace('/c');">重置到/c</button>
+  </div>
+  <div id="root"></div>
+
+  <script>
+    const root = document.getElementById('root');
+    const baseUrl = '/history.html';
+
+    // 重写pushState和replaceState方法，加入渲染逻辑
+    const rawPushState = history.pushState;
+    const rawReplaceState = history.replaceState;
+
+    history.pushState = function pushState(state, title, url) {
+      rawPushState.call(this, state, title, url);
+      handler(state || { path: '' });
+    };
+    history.replaceState = function replaceState(state, title, url) {
+      rawReplaceState.call(this, state, title, url);
+      handler(state || { path: '' });
+    };
+
+    const push = path => {
+      history.pushState({ path }, '', `${baseUrl}${path}`);
+      console.log('监测到btn push动作', path);
+    };
+    const replace = path => {
+      history.replaceState({ path }, '', `${baseUrl}${path}`);
+      console.log('监测到btn replace动作', path);
+    };
+
+    const handler = state => {
+      root.innerHTML = `当前页面的路径是：${state.path}`;
+    };
+
+    // window.onpopstate的触发方式：
+    // 浏览器前进后退按钮
+    // history.back() history.forward() history.go()
+    window.onpopstate = event => {
+      console.log('onpopstate', '监测到前进后退动作');
+      handler(event.state || { path: '' });
+    };
+
+    handler(history.state || { path: '' });
+  </script>
+</body>
+
+</html>
