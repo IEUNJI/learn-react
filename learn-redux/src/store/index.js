@@ -1,8 +1,15 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from '../redux';
 
 import reducer from './reducers';
 
-const store = createStore(reducer, {
+import logger from './middlewares/logger';
+
+// const store = createStore(reducer, {
+//   counter1: 10,
+//   counter2: 20
+// });
+
+const store = applyMiddleware(logger)(createStore)(reducer, {
   counter1: 10,
   counter2: 20
 });
