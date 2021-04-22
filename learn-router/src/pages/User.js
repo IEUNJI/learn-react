@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Route, Link, Switch, Redirect } from '../react-router-dom';
 
 import UserAdd from './UserAdd';
 import UserList from './UserList';
@@ -10,7 +10,7 @@ class User extends React.Component {
   render() {
 
     return (
-      <Router>
+      // <Router>
         <div className="user">
           <div className="user-title">User</div>
 
@@ -28,7 +28,7 @@ class User extends React.Component {
             </Switch>
           </div>
         </div>
-      </Router>
+      // </Router>
     );
   }
 }
