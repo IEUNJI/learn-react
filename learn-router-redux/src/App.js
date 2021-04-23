@@ -1,5 +1,8 @@
 import React from 'react';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter, Route, Link } from 'react-router-dom';
+import { ConnectedRouter as Router } from 'connected-react-router';
+
+import history from './store/history';
 
 import Home from './pages/Home';
 import Counter from './pages/Counter';
@@ -7,7 +10,7 @@ import Counter from './pages/Counter';
 function App() {
 
   return (
-    <Router>
+    <Router history={history}>
       <div className="nav">
         <Link to="/">Home</Link>
         <Link to="/counter">Counter</Link>

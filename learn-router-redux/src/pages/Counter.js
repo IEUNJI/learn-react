@@ -6,13 +6,14 @@ import actionCreators from '../store/actionCreators/counter';
 class Counter extends React.Component {
 
   render() {
-    const { number, increment, decrement } = this.props;
+    const { number, increment, decrement, goHome } = this.props;
 
     return (
       <div className="counter">
         <div>{number}</div>
         <button onClick={increment}>+</button>
         <button onClick={decrement}>-</button>
+        <button onClick={goHome}>goHome</button>
       </div>
     );
   }
