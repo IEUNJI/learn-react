@@ -15,12 +15,12 @@ class Link extends React.Component {
   }
 
   render() {
-    const { to, children } = this.props;
+    const { to, children, className } = this.props;
 
     const href = typeof to === 'string' ? to : to.pathname;
 
     return (
-      <a href={`#${href}`} onClick={this.onLinkClick}>
+      <a href={`#${href}`} className={className} onClick={this.onLinkClick}>
         {children}
       </a>
     );

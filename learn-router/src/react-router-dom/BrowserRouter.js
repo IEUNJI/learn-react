@@ -2,14 +2,19 @@ import React from 'react';
 
 import RouterContext from './RouterContext';
 
-class HashRouter extends React.Component {
-  locationState = undefined;
+const rawPushState = window.history.pushState;
+window.history.pushState = function pushState(state, title, url) {
+  rawPushState.call(this, state, title, url);
+  window.onpushstate(url, state);
+};
+
+class BrowserRouter extends React.Component {
   blockMessageFunc = null;
 
   state = {
     location: {
-      pathname: window.location.hash.slice(1),
-      state: this.locationState
+      pathname: window.location.pathname,
+      state: undefined
     },
     history: {
       push: to => {
@@ -21,8 +26,7 @@ class HashRouter extends React.Component {
           if (!result) return;
         }
 
-        this.locationState = state;
-        window.location.hash = pathname;
+        window.history.pushState(state, '', pathname)
       },
       block: message => {
         this.blockMessageFunc = message;
@@ -30,11 +34,22 @@ class HashRouter extends React.Component {
     }
   };
 
-  onHashChange = () => {
+  onPopState = event => {
     const { location } = this.state;
 
-    location.pathname = window.location.hash.slice(1);
-    location.state = this.locationState;
+    location.pathname = window.location.pathname;
+    location.state = event.state;
+
+    this.setState({
+      location
+    });
+  }
+
+  onPushState = (pathname, state) => {
+    const { location } = this.state;
+
+    location.pathname = pathname;
+    location.state = state;
 
     this.setState({
       location
@@ -52,13 +67,13 @@ class HashRouter extends React.Component {
   }
 
   componentDidMount() {
-    window.location.hash = window.location.hash || '/';
-
-    window.addEventListener('hashchange', this.onHashChange);
+    window.onpopstate = this.onPopState;
+    window.onpushstate = this.onPushState;
   }
 
   componentWillUnmount() {
-    window.removeEventListener('hashchange', this.onHashChange);
+    window.onpopstate = null;
+    window.onpushstate = null;
   }
 
   render() {
@@ -72,4 +87,4 @@ class HashRouter extends React.Component {
   }
 }
 
-export default HashRouter;
+export default BrowserRouter;

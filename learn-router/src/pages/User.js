@@ -5,6 +5,8 @@ import UserAdd from './UserAdd';
 import UserList from './UserList';
 import UserDetail from './UserDetail';
 
+import MenuLink from '../components/MenuLink';
+
 class User extends React.Component {
 
   render() {
@@ -14,9 +16,9 @@ class User extends React.Component {
         <div className="user">
           <div className="user-title">User</div>
 
-          <div className="user-nav">
-            <Link to="/user/list">用户列表</Link>
-            <Link to="/user/add">添加用户</Link>
+          <div className="nav">
+            <MenuLink to="/user/list">用户列表</MenuLink>
+            <MenuLink to="/user/add">添加用户</MenuLink>
           </div>
 
           <div className="user-view">

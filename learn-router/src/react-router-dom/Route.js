@@ -9,7 +9,7 @@ class Route extends React.Component {
 
   render() {
     const { location } = this.context;
-    const { path, component: Component, exact = false, render } = this.props;
+    const { path, component: Component, exact = false, render, children } = this.props;
     const { pathname } = location;
 
     const paramNames = [];
@@ -38,12 +38,23 @@ class Route extends React.Component {
         return <Component {...props} />;
       } else if (render) {
         return render(props);
+      } else if (children) {
+        return children(props);
+      } else {
+        return null;
+      }
+    } else {
+      const props = {
+        ...this.context,
+        match: null
+      };
+
+      if (children) {
+        return children(props);
       } else {
         return null;
       }
     }
-
-    return null;
   }
 }
 

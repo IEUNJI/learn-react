@@ -1,10 +1,22 @@
 import React from 'react';
 
+import { Prompt } from '../react-router-dom';
+
 class UserAdd extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      blocking: false
+    };
+
     this.input = React.createRef();
+  }
+
+  changeBlocking = event => {
+    this.setState({
+      blocking: event.target.value.length > 0
+    });
   }
 
   add = () => {
@@ -23,6 +35,7 @@ class UserAdd extends React.Component {
   }
 
   render() {
+    const { blocking } = this.state;
 
     return (
       <div className="user-add">
@@ -31,9 +44,11 @@ class UserAdd extends React.Component {
         </div>
 
         <div className="user-add-view">
-          <input type="text" ref={this.input} />
+          <input type="text" ref={this.input} onChange={this.changeBlocking} />
           <button onClick={this.add}>add</button>
         </div>
+
+        <Prompt when={blocking} message={location => `确定要跳转至${location.pathname}吗？`} />
       </div>
     );
   }
