@@ -1,4 +1,6 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, createContext, useContext } from 'react';
+
+const CounterContext = createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -9,14 +11,8 @@ const reducer = (state, action) => {
   }
 };
 
-const CounterReducer = props => {
-  const [state, dispatch] = useReducer(reducer, 0, number => {
-    console.log('init reducer', number);
-
-    return { number };
-  });
-
-  const { number } = state;
+const SubCounter = props => {
+  const { state, dispatch } = useContext(CounterContext);
 
   const add = () => {
     setTimeout(() => {
@@ -25,10 +21,26 @@ const CounterReducer = props => {
   };
 
   return (
+    <React.Fragment>
+      <button onClick={add}>+</button>
+      <span>{state.number}</span>
+    </React.Fragment>
+  );
+};
+
+const CounterReducer = props => {
+  const [state, dispatch] = useReducer(reducer, 0, number => {
+    console.log('init reducer', number);
+
+    return { number };
+  });
+
+  return (
     <div className="counter-reducer">
       <div>CounterReducer</div>
-      <button onClick={add}>+</button>
-      <span>{number}</span>
+      <CounterContext.Provider value={{ state, dispatch }}>
+        <SubCounter />
+      </CounterContext.Provider>
     </div>
   );
 };
