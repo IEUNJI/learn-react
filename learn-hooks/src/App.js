@@ -2,12 +2,13 @@ import React from 'react';
 
 import Counter from './pages/Counter';
 import CounterReducer from './pages/CounterReducer';
+import CounterEffect from './pages/CounterEffect';
 
 function App() {
 
   return (
     <React.Fragment>
-      <CounterReducer />
+      <CounterEffect />
     </React.Fragment>
   );
 }
