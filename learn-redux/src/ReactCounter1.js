@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 
-import store from './store';
+import { store } from './store';
 import actions from './store/actions/counter1';
 
 const boundActions = bindActionCreators(actions, store.dispatch);
